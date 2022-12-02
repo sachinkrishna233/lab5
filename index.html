@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Validation</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="form">
+            <h1 class="text-center">Form Validation</h1>
+            <form>
+                <div class="mt">
+                    <label for="name">Full Name <span class="imp">*</span></label> <br>
+                    <input type="text" name="name" id="name" required> <br>
+                    <span class="helper" id="name-helper">small</span> <br>
+                </div>
+
+                <div class="mt">
+                    <label for="phone">Phone <span class="imp">*</span></label> <br>
+                    <input type="number" name="phone" id="phone" required><br>
+                    <span class="helper" id="phone-helper">small</span> <br>
+                </div>
+
+                <div class="mt">
+                    <label for="email">Email <span class="imp">*</span></label> <br>
+                    <input type="email" name="email" id="email" required><br>
+                    <span class="helper" id="email-helper">small</span> <br>
+                </div>
+
+                <div class="mt">
+                    <label for="password">Password <span class="imp">*</span></label> <br>
+                    <input type="password" name="password" id="password" required><br>
+                    <span class="helper" id="password-helper">small</span> <br>
+                </div>
+
+                <input type="submit" value="Submit" class="mt">
+            </form>
+        </div>
+    </div>
+
+    <script>
+        var fullName = document.getElementById('name');
+        var email = document.getElementById('email');
+        var phone = document.getElementById('phone');
+        var password = document.getElementById('password');
+
+        var nameHelp = document.getElementById('name-helper');
+        var emailHelp = document.getElementById('email-helper');
+        var phoneHelp = document.getElementById('phone-helper');
+        var passwordHelp = document.getElementById('password-helper');
+
+        fullName.oninput = function () {
+            var num = /[0-9]/g
+            if (fullName.value.match(num)) {
+                nameLen = fullName.value.length
+                fullName.value = fullName.value.slice(0, nameLen - 1)
+            }
+        }
+    </script>
+</body>
+
+</html>
