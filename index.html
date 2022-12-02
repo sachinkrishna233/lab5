@@ -12,30 +12,30 @@
 <body>
     <div class="container">
         <div class="form">
-            <h1 class="text-center">Form Validation</h1>
+            <p class="text-center" style="font-size: 2em; font-weight:600">Form Validation</p>
             <form>
                 <div class="mt">
                     <label for="name">Full Name <span class="imp">*</span></label> <br>
                     <input type="text" name="name" id="name" required> <br>
-                    <span class="helper" id="name-helper">small</span> <br>
+                    <span class="helper" id="name-helper"></span> <br>
                 </div>
 
                 <div class="mt">
                     <label for="phone">Phone <span class="imp">*</span></label> <br>
-                    <input type="number" name="phone" id="phone" required><br>
-                    <span class="helper" id="phone-helper">small</span> <br>
+                    <input type="tel" name="phone" id="phone" maxlength="10" minlength="10" required><br>
+                    <span class="helper" id="phone-helper"></span> <br>
                 </div>
 
                 <div class="mt">
                     <label for="email">Email <span class="imp">*</span></label> <br>
                     <input type="email" name="email" id="email" required><br>
-                    <span class="helper" id="email-helper">small</span> <br>
+                    <span class="helper" id="email-helper"></span> <br>
                 </div>
 
                 <div class="mt">
                     <label for="password">Password <span class="imp">*</span></label> <br>
                     <input type="password" name="password" id="password" required><br>
-                    <span class="helper" id="password-helper">small</span> <br>
+                    <span class="helper" id="password-helper"></span> <br>
                 </div>
 
                 <input type="submit" value="Submit" class="mt">
@@ -61,6 +61,21 @@
                 fullName.value = fullName.value.slice(0, nameLen - 1)
             }
         }
+
+        phone.oninput = function () {
+            var num = /[a-z]/i
+            if (phone.value.match(num)) {
+                nameLen = phone.value.length
+                phone.value = phone.value.slice(0, nameLen - 1)
+            }
+        }
+
+        // password.oninput = function () {
+        //     var num = /[a-z]/i
+        //     if (password.value.match(num)) {
+        //         console.log("match")
+        //     }
+        // }
     </script>
 </body>
 
