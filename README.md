@@ -1,7 +1,7 @@
 # Lab 5 - Form Validation Using Regular Expression
-Form Validation
+## Form Validation
 
-## Write a JavaScript to validate all fields in your domain with the following conditions
+### Write a JavaScript to validate all fields in your domain with the following conditions
 1. Name field should accept only characters and you should lock the digit keys
 2. Phone number field should have exactly 10 digits (you should lock the character keys) using regular expression
 3. Passwords must contain:
