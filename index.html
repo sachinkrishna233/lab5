@@ -13,10 +13,10 @@
     <div class="container">
         <div class="form">
             <p class="text-center" style="font-size: 2em; font-weight:600">Form Validation</p>
-            <form>
+            <form autocomplete="off">
                 <div class="mt">
                     <label for="name">Full Name <span class="imp">*</span></label> <br>
-                    <input type="text" name="name" id="name" required> <br>
+                    <input type="text" name="name" id="name" required autofocus> <br>
                     <span class="helper" id="name-helper"></span> <br>
                 </div>
 
@@ -34,7 +34,8 @@
 
                 <div class="mt">
                     <label for="password">Password <span class="imp">*</span></label> <br>
-                    <input type="password" name="password" id="password" required><br>
+                    <input type="password" name="password" id="password" required> <br>
+                    <input type="checkbox" name="show" id="check"><small> Show Password</small>
                     <span class="helper" id="password-helper"></span> <br>
                 </div>
 
@@ -53,29 +54,44 @@
         var emailHelp = document.getElementById('email-helper');
         var phoneHelp = document.getElementById('phone-helper');
         var passwordHelp = document.getElementById('password-helper');
+        var check = document.getElementById('check')
 
         fullName.oninput = function () {
-            var num = /[0-9]/g
-            if (fullName.value.match(num)) {
+            // var num = /[0-9!@#$%^&*()~`\_\-\+\={}\[\]|\\;:'",./<>?]/g
+            var letters = /[a-zA-Z.]/g
+            var emoiji = /([\uE000-\uF8FF]|\uD83C[\uDF00-\uDFFF]|\uD83D[\uDC00-\uDDFF])/g
+            if (!fullName.value.match(letters)) {
                 nameLen = fullName.value.length
                 fullName.value = fullName.value.slice(0, nameLen - 1)
             }
         }
 
         phone.oninput = function () {
-            var num = /[a-z]/i
-            if (phone.value.match(num)) {
+            var num = /[0-9]/i
+            if (!phone.value.match(num) || phone.value.match(/\s/g)) {
                 nameLen = phone.value.length
                 phone.value = phone.value.slice(0, nameLen - 1)
             }
         }
 
-        // password.oninput = function () {
-        //     var num = /[a-z]/i
-        //     if (password.value.match(num)) {
-        //         console.log("match")
-        //     }
-        // }
+        password.oninput = function () {
+            var lowercase = /[a-z]/g
+            var uppercase = /[a-z]/g
+            var num = /[0-9]/g
+            var spl = /[!@#$%^&*()~`\_\-\+\={}\[\]|\\;:'",./<>?]/g
+            if (password.value.match(num) && password.value.match(uppercase) && password.value.match(lowercase) && password.value.match(spl)) {
+                console.log("match")
+            }
+        }
+
+        check.onchange =  function show(){
+            
+            if(check.checked){
+                password.type="text"
+                return
+            }
+            password.type="password"
+        }
     </script>
 </body>
 

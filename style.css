@@ -115,3 +115,16 @@ input[type="submit"] {
 .imp {
     color: var(--danger);
 }
+
+
+#check{
+    float: left;
+    align-items: flex-start;
+    width: min-content;
+    /* padding-top: 1px; */
+}
+
+#check,small{
+    /* border: 1px solid; */
+    margin-top: 4px;
+}
