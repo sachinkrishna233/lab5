@@ -15,8 +15,14 @@
             <p class="text-center" style="font-size: 2em; font-weight:600">Form Validation</p>
             <form autocomplete="off">
                 <div class="mt">
-                    <label for="name">Full Name <span class="imp">*</span></label> <br>
-                    <input type="text" name="name" id="name" required autofocus> <br>
+                    <label for="name">First Name <span class="imp">*</span></label> <br>
+                    <input type="text" name="name" id="fname" required autofocus> <br>
+                    <span class="helper" id="name-helper"></span> <br>
+                </div>
+
+                <div class="mt">
+                    <label for="name">Last Name <span class="imp">*</span></label> <br>
+                    <input type="text" name="name" id="lname" required autofocus> <br>
                     <span class="helper" id="name-helper"></span> <br>
                 </div>
 
@@ -34,8 +40,8 @@
 
                 <div class="mt">
                     <label for="password">Password <span class="imp">*</span></label> <br>
-                    <input type="password" name="password" id="password" required> <br>
-                    <input type="checkbox" name="show" id="check"><small> Show Password</small>
+                    <input type="password" name="password" id="password" required minlength="8"> <br>
+                    <div class="show"><input type="checkbox" name="show" id="check"><small> Show Password</small></div>
                     <span class="helper" id="password-helper"></span> <br>
                 </div>
 
@@ -45,7 +51,8 @@
     </div>
 
     <script>
-        var fullName = document.getElementById('name');
+        var fName = document.getElementById('fname');
+        var lName = document.getElementById('lname');
         var email = document.getElementById('email');
         var phone = document.getElementById('phone');
         var password = document.getElementById('password');
@@ -56,22 +63,50 @@
         var passwordHelp = document.getElementById('password-helper');
         var check = document.getElementById('check')
 
-        fullName.oninput = function () {
-            // var num = /[0-9!@#$%^&*()~`\_\-\+\={}\[\]|\\;:'",./<>?]/g
-            var letters = /[a-zA-Z.]/g
-            var emoiji = /([\uE000-\uF8FF]|\uD83C[\uDF00-\uDFFF]|\uD83D[\uDC00-\uDDFF])/g
-            if (!fullName.value.match(letters)) {
-                nameLen = fullName.value.length
-                fullName.value = fullName.value.slice(0, nameLen - 1)
+        fName.oninput = function () {
+            var spl = /[!@#$%^&*()~`\_\-\+\={}\[\]|\\;:'",./<>?]/g
+            var letters = /[0-9]/g
+            // var emoiji = /([\uE000-\uF8FF]|\uD83C[\uDF00-\uDFFF]|\uD83D[\uDC00-\uDDFF])/g
+            if (fName.value.match(letters) || fName.value.match(/\s/g) || fName.value.match(spl)) {
+                nameLen = fName.value.length
+                fName.value = fName.value.slice(0, nameLen - 1)
+            }
+            if (fName.value.length >= 3) {
+                fName.style.outlineColor = "var(--success)"
+                fName.style.border = "1px solid var(--success)"
             }
         }
 
+        lName.oninput = function () {
+            var spl = /[!@#$%^&*()~`\_\-\+\={}\[\]|\\;:'",./<>?]/g
+            var letters = /[0-9]/g
+            if (lName.value.match(letters) || lName.value.match(/\s/g) || lName.value.match(spl)) {
+                nameLen = lName.value.length
+                lName.value = lName.value.slice(0, nameLen - 1)
+            }
+            if (lName.value.length >= 3) {
+                lName.style.outlineColor = "var(--success)"
+                lName.style.border = "1px solid var(--success)"
+                return
+            }
+            lName.style.outlineColor = "var(--danger)"
+            lName.style.border = "1px solid var(--danger)"
+        }
+
         phone.oninput = function () {
-            var num = /[0-9]/i
-            if (!phone.value.match(num) || phone.value.match(/\s/g)) {
+            var num = /[a-z]/i
+            var spl = /[!@#$%^&*()~`\_\-\+\={}\[\]|\\;:'",./<>?]/g
+            if (phone.value.match(num) || phone.value.match(/\s/g) || phone.value.match(spl)) {
                 nameLen = phone.value.length
                 phone.value = phone.value.slice(0, nameLen - 1)
             }
+            if (phone.value.length == 10) {
+                phone.style.outlineColor = "var(--success)"
+                phone.style.border = "1px solid var(--success)"
+                return
+            }
+            phone.style.outlineColor = "var(--danger)"
+            phone.style.border = "1px solid var(--danger)"
         }
 
         password.oninput = function () {
@@ -79,18 +114,22 @@
             var uppercase = /[a-z]/g
             var num = /[0-9]/g
             var spl = /[!@#$%^&*()~`\_\-\+\={}\[\]|\\;:'",./<>?]/g
-            if (password.value.match(num) && password.value.match(uppercase) && password.value.match(lowercase) && password.value.match(spl)) {
-                console.log("match")
-            }
-        }
-
-        check.onchange =  function show(){
-            
-            if(check.checked){
-                password.type="text"
+            if (password.value.match(num) && password.value.match(uppercase) && password.value.match(lowercase) && password.value.match(spl) && password.value.length >= 10) {
+                password.style.outlineColor = "var(--success)"
+                password.style.border = "1px solid var(--success)"
                 return
             }
-            password.type="password"
+            password.style.outlineColor = "var(--danger)"
+            password.style.border = "1px solid var(--danger)"
+        }
+
+        check.onchange = function show() {
+
+            if (check.checked) {
+                password.type = "text"
+                return
+            }
+            password.type = "password"
         }
     </script>
 </body>
