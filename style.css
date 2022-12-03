@@ -109,26 +109,25 @@ input[type="submit"] {
     color: black;
 }
 
+.imp,
 .helper {
-    color: var(--success)
-}
-
-.imp {
     color: var(--danger);
 }
 
 
-#check{
+#check {
     float: left;
     align-items: flex-start;
     width: min-content;
     align-self: baseline;
 }
 
-#check,small{
+#check,
+small {
     margin-top: 4px;
 }
 
-.show{
-    border:1px solid transparent;
+.show {
+    border: 1px solid transparent;
+    display: flex;
 }

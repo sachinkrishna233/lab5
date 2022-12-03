@@ -74,7 +74,10 @@
             if (fName.value.length >= 3) {
                 fName.style.outlineColor = "var(--success)"
                 fName.style.border = "1px solid var(--success)"
+                return
             }
+            fName.style.outlineColor = "var(--danger)"
+            fName.style.border = "1px solid var(--danger)"
         }
 
         lName.oninput = function () {
@@ -111,10 +114,29 @@
 
         password.oninput = function () {
             var lowercase = /[a-z]/g
-            var uppercase = /[a-z]/g
+            var uppercase = /[A-Z]/g
             var num = /[0-9]/g
             var spl = /[!@#$%^&*()~`\_\-\+\={}\[\]|\\;:'",./<>?]/g
-            if (password.value.match(num) && password.value.match(uppercase) && password.value.match(lowercase) && password.value.match(spl) && password.value.length >= 10) {
+            var msg = ""
+
+            if (!password.value.match(num))
+                msg += "Add a minimum of 1 numeric character [0-9] <br/>"
+
+            if (!password.value.match(uppercase))
+                msg += "Add a minimum of 1 upper case letter [A-Z] <br/>"
+
+            if (!password.value.match(lowercase))
+                msg += "Add a minimum of 1 lower case letter [a-z] <br/>"
+
+            if (!password.value.match(spl))
+                msg += "Add 1 special character: ~`!@#$%^&*()-_+={}[]|;:\"<>,./? <br/>"
+
+            if (password.value.length < 8)
+                msg += "Minimum 8 characters <br/>"
+
+            passwordHelp.innerHTML = msg
+
+            if (password.value.match(num) && password.value.match(uppercase) && password.value.match(lowercase) && password.value.match(spl) && password.value.length >= 8) {
                 password.style.outlineColor = "var(--success)"
                 password.style.border = "1px solid var(--success)"
                 return
