@@ -16,14 +16,14 @@
             <form autocomplete="off">
                 <div class="mt">
                     <label for="name">First Name <span class="imp">*</span></label> <br>
-                    <input type="text" name="name" id="fname" required autofocus> <br>
-                    <span class="helper" id="name-helper"></span> <br>
+                    <input type="text" name="name" id="fname" minlength="3" autofocus required> <br>
+                    <span class="helper" id="fname-helper"></span> <br>
                 </div>
 
                 <div class="mt">
                     <label for="name">Last Name <span class="imp">*</span></label> <br>
-                    <input type="text" name="name" id="lname" required autofocus> <br>
-                    <span class="helper" id="name-helper"></span> <br>
+                    <input type="text" name="name" id="lname" minlength="3" required> <br>
+                    <span class="helper" id="lname-helper"></span> <br>
                 </div>
 
                 <div class="mt">
@@ -41,8 +41,18 @@
                 <div class="mt">
                     <label for="password">Password <span class="imp">*</span></label> <br>
                     <input type="password" name="password" id="password" required minlength="8"> <br>
-                    <div class="show"><input type="checkbox" name="show" id="check"><small> Show Password</small></div>
+                    <div class="show"><input type="checkbox" name="show" id="check" class="check"><small> Show
+                            Password</small></div>
                     <span class="helper" id="password-helper"></span> <br>
+                </div>
+
+                <div class="mt">
+                    <label for="password">Confirm Password <span class="imp">*</span></label> <br>
+                    <input type="password" name="cnf-password" id="cnf-password" required minlength="8"> <br>
+                    <div class="show">
+                        <input type="checkbox" name="show" id="cnf-check" class="check"><small> Show Password</small>
+                    </div>
+                    <span class="helper" id="cnf-password-helper"></span> <br>
                 </div>
 
                 <input type="submit" value="Submit" class="mt">
@@ -56,12 +66,18 @@
         var email = document.getElementById('email');
         var phone = document.getElementById('phone');
         var password = document.getElementById('password');
+        var cnfPassword = document.getElementById('cnf-password');
 
-        var nameHelp = document.getElementById('name-helper');
+        var fNameHelp = document.getElementById('fname-helper');
+        var lNameHelp = document.getElementById('lname-helper');
         var emailHelp = document.getElementById('email-helper');
         var phoneHelp = document.getElementById('phone-helper');
         var passwordHelp = document.getElementById('password-helper');
+        var cnfPasswordHelp = document.getElementById('cnf-password-helper');
         var check = document.getElementById('check')
+        var cnfCheck = document.getElementById('cnf-check')
+
+        var passSatisfied = false
 
         fName.oninput = function () {
             var spl = /[!@#$%^&*()~`\_\-\+\={}\[\]|\\;:'",./<>?]/g
@@ -71,6 +87,12 @@
                 nameLen = fName.value.length
                 fName.value = fName.value.slice(0, nameLen - 1)
             }
+
+            var msg = ""
+            if (fName.value.length < 3)
+                msg += "Minimum 3 characters"
+            fNameHelp.innerHTML = msg
+
             if (fName.value.length >= 3) {
                 fName.style.outlineColor = "var(--success)"
                 fName.style.border = "1px solid var(--success)"
@@ -87,6 +109,12 @@
                 nameLen = lName.value.length
                 lName.value = lName.value.slice(0, nameLen - 1)
             }
+
+            var msg = ""
+            if (lName.value.length < 3)
+                msg += "Minimum 3 characters"
+            lNameHelp.innerHTML = msg
+
             if (lName.value.length >= 3) {
                 lName.style.outlineColor = "var(--success)"
                 lName.style.border = "1px solid var(--success)"
@@ -103,6 +131,12 @@
                 nameLen = phone.value.length
                 phone.value = phone.value.slice(0, nameLen - 1)
             }
+
+            var msg = ""
+            if (phone.value.length < 10)
+                msg += "Must have 10 digits"
+            phoneHelp.innerHTML = msg
+
             if (phone.value.length == 10) {
                 phone.style.outlineColor = "var(--success)"
                 phone.style.border = "1px solid var(--success)"
@@ -112,11 +146,32 @@
             phone.style.border = "1px solid var(--danger)"
         }
 
+        email.oninput = function () {
+            var emailPattern = /^[a-z]+([\.-]?[a-z]+)*@[a-z]+([\.-]?[a-z]+)*(\.[a-z]{2,3})+$/
+            var msg = ""
+
+            if (!email.value.match(emailPattern))
+                msg = "Invalid email"
+
+            emailHelp.innerText = msg
+
+            if (email.value.match(emailPattern)) {
+                email.style.outlineColor = "var(--success)"
+                email.style.border = "1px solid var(--success)"
+                return
+            }
+
+            email.style.outlineColor = "var(--danger)"
+            email.style.border = "1px solid var(--danger)"
+        }
+
         password.oninput = function () {
+            passSatisfied = false
             var lowercase = /[a-z]/g
             var uppercase = /[A-Z]/g
             var num = /[0-9]/g
             var spl = /[!@#$%^&*()~`\_\-\+\={}\[\]|\\;:'",./<>?]/g
+
             var msg = ""
 
             if (!password.value.match(num))
@@ -139,6 +194,7 @@
             if (password.value.match(num) && password.value.match(uppercase) && password.value.match(lowercase) && password.value.match(spl) && password.value.length >= 8) {
                 password.style.outlineColor = "var(--success)"
                 password.style.border = "1px solid var(--success)"
+                passSatisfied = true
                 return
             }
             password.style.outlineColor = "var(--danger)"
@@ -152,6 +208,37 @@
                 return
             }
             password.type = "password"
+        }
+
+        cnfCheck.onchange = function show() {
+
+            if (cnfCheck.checked) {
+                cnfPassword.type = "text"
+                return
+            }
+            cnfPassword.type = "password"
+        }
+
+        cnfPassword.oninput = function () {
+            var msg = ""
+
+            if (password.value == '')
+                msg += "Password cannot be empty<br/>"
+
+            if (!passSatisfied)
+                msg += "Please follow all condition in password<br/>"
+            if (cnfPassword.value !== password.value)
+                msg += "Password does not match<br/>"
+            cnfPasswordHelp.innerHTML = msg
+
+            if (cnfPassword.value === password.value && passSatisfied && password.value != '') {
+                cnfPassword.style.outlineColor = "var(--success)"
+                cnfPassword.style.border = "1px solid var(--success)"
+                return
+            }
+
+            cnfPassword.style.outlineColor = "var(--danger)"
+            cnfPassword.style.border = "1px solid var(--danger)"
         }
     </script>
 </body>

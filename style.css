@@ -115,14 +115,14 @@ input[type="submit"] {
 }
 
 
-#check {
+.check {
     float: left;
     align-items: flex-start;
     width: min-content;
     align-self: baseline;
 }
 
-#check,
+.check,
 small {
     margin-top: 4px;
 }
