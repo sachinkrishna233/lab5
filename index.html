@@ -16,31 +16,31 @@
             <form autocomplete="off" onsubmit="return false">
                 <div class="mt">
                     <label for="name">First Name <span class="imp">*</span></label> <br>
-                    <input type="text" name="name" id="fname" minlength="2" autofocus required> <br>
+                    <input type="text" name="name" id="fname" minlength="2" onpaste="return false" autofocus required> <br>
                     <span class="helper" id="fname-helper"></span> <br>
                 </div>
 
                 <div class="mt">
                     <label for="name">Last Name <span class="imp">*</span></label> <br>
-                    <input type="text" name="name" id="lname" minlength="3" required> <br>
+                    <input type="text" name="name" id="lname" minlength="3" onpaste="return false" required> <br>
                     <span class="helper" id="lname-helper"></span> <br>
                 </div>
 
                 <div class="mt">
                     <label for="phone">Phone <span class="imp">*</span></label> <br>
-                    <input type="tel" name="phone" id="phone" maxlength="10" minlength="10" required><br>
+                    <input type="tel" name="phone" id="phone" maxlength="10" minlength="10" onpaste="return false" required><br>
                     <span class="helper" id="phone-helper"></span> <br>
                 </div>
 
                 <div class="mt">
                     <label for="email">Email <span class="imp">*</span></label> <br>
-                    <input type="email" name="email" id="email" required><br>
+                    <input type="email" name="email" id="email" onpaste="return false" required><br>
                     <span class="helper" id="email-helper"></span> <br>
                 </div>
 
                 <div class="mt">
                     <label for="password">Password <span class="imp">*</span></label> <br>
-                    <input type="password" name="password" id="password" required minlength="8"> <br>
+                    <input type="password" name="password" id="password" onpaste="return false" required minlength="8"> <br>
                     <div class="show"><input type="checkbox" name="show" id="check" class="check"><small> Show
                             Password</small></div>
                     <span class="helper" id="password-helper"></span> <br>
@@ -48,7 +48,7 @@
 
                 <div class="mt">
                     <label for="password">Confirm Password <span class="imp">*</span></label> <br>
-                    <input type="password" name="cnf-password" id="cnf-password" required minlength="8"> <br>
+                    <input type="password" name="cnf-password" id="cnf-password" onpaste="return false" required minlength="8"> <br>
                     <div class="show">
                         <input type="checkbox" name="show" id="cnf-check" class="check"><small> Show Password</small>
                     </div>
